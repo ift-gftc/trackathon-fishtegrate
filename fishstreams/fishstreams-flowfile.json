@@ -1,0 +1,216 @@
+[
+  {
+    "id": "eb7a642f.8e3778",
+    "type": "tab",
+    "label": "Fishtegrate",
+    "disabled": false,
+    "info": "Fish datastream integration entry for GDST Bali Hackathon."
+  },
+  {
+    "id": "cd5646cd.5b8fe8",
+    "type": "streamr-sub",
+    "z": "eb7a642f.8e3778",
+    "name": "FAME",
+    "stream": "c62bdf18.8436",
+    "x": 110,
+    "y": 440,
+    "wires": [
+      [
+        "a40d0399.da76f",
+        "7c69c140.4b777"
+      ]
+    ]
+  },
+  {
+    "id": "a40d0399.da76f",
+    "type": "debug",
+    "z": "eb7a642f.8e3778",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 370,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "98de632e.e5142",
+    "type": "function-npm",
+    "z": "eb7a642f.8e3778",
+    "name": "Data formatting",
+    "func": "var faker = require('faker');\n\nvar obj = {};\nobj.catchId = faker.random.number();\nobj.referenceNumber = faker.random.number() +\"-\"+faker.random.number()+\"-\"+faker.random.number() \n//MV or FV\nobj.vesselName = \"MV \" + faker.name.firstName();\nobj.boarCaptain = faker.name.firstName() + \" \" + faker.name.lastName();\nobj.species = \"YFT\";\nobj.weight = faker.random.number(100);\nobj.latitude = faker.finance.amount(4.880,5.673,4);\nobj.longitude = faker.finance.amount(123.665,125.050,4);\nobj.verifiedDate = \"\"\nobj.verified = false\nobj.verifiedBy = \"\"\nobj.datasource = \"External Dataprovider X\"\nobj.bearing = faker.random.number(360);\nmsg.payload = obj;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 400,
+    "y": 180,
+    "wires": [
+      [
+        "fd261296.89e2b",
+        "da5b0cf6.dfd17"
+      ]
+    ]
+  },
+  {
+    "id": "ae07670d.e65b58",
+    "type": "inject",
+    "z": "eb7a642f.8e3778",
+    "name": "Dataprovider X",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "10",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "x": 160,
+    "y": 180,
+    "wires": [
+      [
+        "98de632e.e5142"
+      ]
+    ]
+  },
+  {
+    "id": "fd261296.89e2b",
+    "type": "function",
+    "z": "eb7a642f.8e3778",
+    "name": "Attribute appending",
+    "func": "msg.payload.icon = \"ship\"\nmsg.payload.iconColor = \"gray\"\nmsg.payload.name = msg.payload.catchId;\nmsg.payload.lon = parseFloat(msg.payload.longitude);\nmsg.payload.lat = parseFloat(msg.payload.latitude);\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 740,
+    "y": 180,
+    "wires": [
+      [
+        "c54f6934.4294a8"
+      ]
+    ]
+  },
+  {
+    "id": "da5b0cf6.dfd17",
+    "type": "streamr-pub",
+    "z": "eb7a642f.8e3778",
+    "name": "Aggregate stream",
+    "stream": "5f76ad25.b579f4",
+    "x": 1050,
+    "y": 560,
+    "wires": []
+  },
+  {
+    "id": "c54f6934.4294a8",
+    "type": "worldmap",
+    "z": "eb7a642f.8e3778",
+    "name": "Fishtegrate realtime map",
+    "lat": "5.1",
+    "lon": "124.5",
+    "zoom": "8",
+    "layer": "OSM grey",
+    "cluster": "",
+    "maxage": "",
+    "usermenu": "hide",
+    "layers": "show",
+    "panit": "true",
+    "panlock": "false",
+    "zoomlock": "false",
+    "path": "/fishtegrate",
+    "x": 1070,
+    "y": 400,
+    "wires": []
+  },
+  {
+    "id": "7c69c140.4b777",
+    "type": "function",
+    "z": "eb7a642f.8e3778",
+    "name": "Data formatting",
+    "func": "msg.payload.icon = \"ship\"\nmsg.payload.iconColor = \"red\"\nmsg.payload.name = msg.payload.referenceNumber;\nmsg.payload.lon = parseFloat(msg.payload.longitude);\nmsg.payload.lat = parseFloat(msg.payload.latitude);\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 380,
+    "y": 520,
+    "wires": [
+      [
+        "da5b0cf6.dfd17",
+        "c54f6934.4294a8"
+      ]
+    ]
+  },
+  {
+    "id": "6b9a7ab7.e7e834",
+    "type": "function-npm",
+    "z": "eb7a642f.8e3778",
+    "name": "Data formatting",
+    "func": "var faker = require('faker');\n\nvar obj = {};\nobj.catchId = faker.random.number();\nobj.referenceNumber = faker.random.number() +\"-\"+faker.random.number()+\"-\"+faker.random.number() \n//MV or FV\nobj.vesselName = \"MV \" + faker.name.firstName();\nobj.boarCaptain = faker.name.firstName() + \" \" + faker.name.lastName();\nobj.species = \"YFT\";\nobj.weight = faker.random.number(100);\n//todo set bounding box for coordinates\nobj.latitude = faker.finance.amount(4.880,5.673,4);\nobj.longitude = faker.finance.amount(123.665,125.050,4);\nobj.verifiedDate = \"\"\nobj.verified = false\nobj.verifiedBy = \"\"\nobj.datasource = \"External Dataprovider Y\"\n//obj.icon = \"ship\"\n//{catchId: '123456', referenceNumber: '444-111-01', vesselName: 'MV Princess', boatCaptain: 'Juan Dela Cruz', species: 'YFT', weight: 10, latitude: '', longitude: '', catchDate: '', verifiedDate: '2019-10-26T09:10:43.105Z', verified: true, verifiedBy: 'Philippine Government', datasource: 'FAME'}\n\n\n//faker.seed(123);\n//var firstRandom = faker.random.number();\nmsg.payload = obj;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 400,
+    "y": 760,
+    "wires": [
+      [
+        "cc098d7c.dc3",
+        "da5b0cf6.dfd17"
+      ]
+    ]
+  },
+  {
+    "id": "57ad8d3a.525da4",
+    "type": "inject",
+    "z": "eb7a642f.8e3778",
+    "name": "Dataprovider Y",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "15",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "x": 160,
+    "y": 760,
+    "wires": [
+      [
+        "6b9a7ab7.e7e834"
+      ]
+    ]
+  },
+  {
+    "id": "cc098d7c.dc3",
+    "type": "function",
+    "z": "eb7a642f.8e3778",
+    "name": "Attribute appending",
+    "func": "msg.payload.icon = \"ship\"\nmsg.payload.iconColor = \"gray\"\nmsg.payload.name = msg.payload.catchId;\nmsg.payload.lon = parseFloat(msg.payload.longitude);\nmsg.payload.lat = parseFloat(msg.payload.latitude);\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 740,
+    "y": 760,
+    "wires": [
+      [
+        "c54f6934.4294a8"
+      ]
+    ]
+  },
+  {
+    "id": "cbfa5ecc.8d03f",
+    "type": "comment",
+    "z": "eb7a642f.8e3778",
+    "name": "Fishtegrate /w 3 data providers",
+    "info": "",
+    "x": 590,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "c62bdf18.8436",
+    "type": "streamr-config",
+    "z": "",
+    "apiKey": "zblD1FJoQY-UnoOsEUHq6ATmFQwP8HSV6t7YH6LfKetg",
+    "streamId": "FpnIJdi5SuWpENN1XQZ63w"
+  },
+  {
+    "id": "5f76ad25.b579f4",
+    "type": "streamr-config",
+    "z": "",
+    "apiKey": "QfjZydbuTKSdi6SiTDc3owfEPuCZXoT0m4fXeK3oPQnQ",
+    "streamId": "KicwkKbQQ4-hxfR_cdulPQ"
+  }
+]

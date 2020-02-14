@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html  >
+<head>
+ 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.10.7, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+  <meta name="description" content="">
+  
+  <title>FISHTEGRATE</title>
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.css">
+  <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.theme.css">
+  <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+	<script src="./js/jquery-1.11.2.js"></script>
+  
+	<script>
+	//----------
+
+		$(document).ready(function(){
+		
+			//-----CREATE RANDOM HERE
+			var myrndnum = Math.floor(Math.random() * 10000000000);
+			var mylat = "5.6" + (Math.floor(Math.random() * 100000));
+			var mylong = "124.8" + (Math.floor(Math.random() * 100000));
+			
+			//-----PASSING VALUE HERE
+			$("#ref_no").val(myrndnum);
+			$("#latitude").val(mylat);
+			$("#longitude").val(mylong);
+			
+			//-----POSTING IN SERVER HERE
+			$("#btn_submit").click(function () {
+			
+				var referenceNumber = $("#ref_no").val();
+				var vesselname = $("#vessel_name").val();
+				var boatcaptain = $("#boat_captain").val();
+				var speciestype = $("#species_type").val();
+				var weight = $("#weight").val();
+				var latitude = $("#latitude").val();
+				var longitude = $("#longitude").val();
+				var catchDate = $("#catchDate").val();
+			
+				$.ajax({
+					type: "GET",
+					url: "http://192.168.4.3:8080/sync_catch_report?ref_no="+referenceNumber+"&vessel_name="+vesselname+"&boat_captain="+boatcaptain+"&species_type="+speciestype+"&weight="+weight+"&latitude="+latitude+"&longitude="+longitude+"&catchDate="+catchDate,
+					success: function (response) {
+					//console.log(url);
+					}
+				});/**/
+				
+				setTimeout(function() {
+					alert("Catch information sent");
+					location.reload();
+				}, 1000);
+					
+			});
+			
+		});
+			
+	//----------
+	</script>
+</head>
+<body>
+  <section class="form cid-rG0uO8Lz7d" id="formbuilder-0">
+    
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+<!--Formbuilder Form-->
+<!-- <form action="http://192.168.4.3:8080/sync_catch_report" method="POST" class="mbr-form form-with-styler"> -->
+<div class="form-row">
+
+<div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!</div>
+</div>
+<div class="dragArea form-row">
+<div class="col-lg-12 col-md-12 col-sm-12">
+<h4 class="mbr-fonts-style display-5" style="color:#fff">FISHTEGRATE DEMO</h4>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12">
+<hr>
+</div>
+<div data-for="referenceNumber" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<input id="ref_no" type="number" name="referenceNumber" placeholder="Reference Number" data-form-field="referenceNumber" class="form-control display-7" max="100" min="0" step="1" value="" disabled>
+</div>
+<div data-for="vesselName" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<input id="vessel_name" type="text" name="vesselName" placeholder="Vessel Name" data-form-field="vesselName" class="form-control display-7" value="">
+</div>
+<div data-for="boatCaptain" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<input id="boat_captain" type="text" name="boatCaptain" placeholder="Boat Captain" data-form-field="boatCaptain" class="form-control display-7" value="">
+</div>
+<div data-for="species" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<select name="species" data-form-field="species" class="form-control display-7" id="species_type">
+<option value="Yellow Fin Tuna (YFT)">Yellow Fin Tuna (YFT)</option>
+<option value="Big Eye Tuna (BET)">Big Eye Tuna (BET)</option>
+<option value="Blue Marlin (BUM)">Blue Marlin (BUM)</option>
+<option value="Sword Fish (SFA)">Sword Fish (SFA)</option>
+<option value="Pacific Blue Fin Tuna (PBF)">Pacific Blue Fin Tuna (PBF)</option>
+</select>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 form-group" data-for="weight">
+<input type="number" name="weight" placeholder="Weight" max="100" min="0" step="1" data-form-field="weight" class="form-control display-7" value="" id="weight">
+</div>
+<div data-for="latitude" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<input id="latitude" type="number" step="any" name="latitude" placeholder="Latitude" max="100" min="0" data-form-field="latitude" class="form-control display-7" value="" disabled>
+</div>
+<div data-for="longitude" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<input id="longitude" type="number" step="any" name="longitude" placeholder="Longitude" max="100" min="0" data-form-field="longitude" class="form-control display-7" value="" disabled>
+</div>
+<div data-for="catchDate" class="col-lg-12 col-md-12 col-sm-12 form-group">
+<label for="catchDate-formbuilder-0" class="form-control-label mbr-fonts-style display-7">&lt;b&gt;Catch Date&lt;/b&gt;</label>
+<input type="date" name="catchDate" data-form-field="catchDate" class="form-control display-7" value="2019-10-27" id="catchDate">
+</div>
+<div class="col-auto">
+<button id="btn_submit" type="submit" class="btn btn-primary display-7">Submit</button>
+</div>
+</div>
+<!-- </form> --><!--Formbuilder Form-->
+</div>
+        </div>
+    </div>
+</section>
+
+
+  <section class="engine"><a href="">template</a></section><script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/formstyler/jquery.formstyler.js"></script>
+  <script src="assets/formstyler/jquery.formstyler.min.js"></script>
+  <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  
+  
+</body>
+</html>

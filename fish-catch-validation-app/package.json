@@ -1,0 +1,19 @@
+{
+  "name": "fish-catch-validation-app",
+  "version": "1.0.0",
+  "description": "web-based app for validating fish catch report",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm install && node index"
+  },
+  "author": "marx.macalalag@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.17.1"
+  },
+  "dependencies": {
+    "mariadb": "^2.1.2",
+    "sequelize": "^5.21.1",
+    "streamr-client": "^2.2.5"
+  }
+}
