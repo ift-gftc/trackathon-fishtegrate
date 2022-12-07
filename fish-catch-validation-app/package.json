@@ -9,7 +9,7 @@
   "author": "marx.macalalag@gmail.com",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.17.1"
+    "express": "^4.18.2"
   },
   "dependencies": {
     "mariadb": "^2.1.2",
